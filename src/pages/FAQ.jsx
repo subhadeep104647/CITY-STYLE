@@ -62,6 +62,7 @@ const FAQ = () => {
             <li><Link to="/#fashion">FASHION</Link></li>
             <li><Link to="/#favourite">FAVOURITE</Link></li>
             <li><Link to="/#lifestyle">LIFESTYLE</Link></li>
+            <li><Link to="/cart">CART</Link></li>
             <li>
                 <Link to="/auth" className="btn" style={{color: 'white'}}>SIGN UP</Link>
             </li>
