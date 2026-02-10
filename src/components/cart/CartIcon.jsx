@@ -3,7 +3,7 @@ import CartContext from "../../contexts/CartContext";
 
 export default function CartIcon({ onClick }) {
   const { state } = useContext(CartContext);
-  const count = state.cartItems.length;
+  const count = state.items.length;
 
   return (
     <div className="cart-icon" onClick={onClick}>

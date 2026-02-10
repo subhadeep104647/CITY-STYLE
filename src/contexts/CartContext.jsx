@@ -3,46 +3,49 @@ import { createContext, useReducer, useEffect } from "react";
 const CartContext = createContext();
 
 const initialState = {
-  cartItems: JSON.parse(localStorage.getItem("cart")) || [],
+  items: JSON.parse(localStorage.getItem("cartItems")) || [],
 };
 
 function cartReducer(state, action) {
   switch (action.type) {
-    case "ADD_ITEM":
-      return { ...state, cartItems: [...state.cartItems, action.payload] };
-    case "REMOVE_ITEM":
+    case "ADD_TO_CART": {
+      const exists = state.items.find(
+        item => item.id === action.payload.id
+      );
+      if (exists) return state;
+
       return {
         ...state,
-        cartItems: state.cartItems.filter(item => item.id !== action.payload),
+        items: [...state.items, action.payload],
       };
-    case "UPDATE_QTY":
+    }
+
+    case "REMOVE_FROM_CART":
       return {
         ...state,
-        cartItems: state.cartItems.map(item =>
-          item.id === action.payload.id
-            ? { ...item, quantity: action.payload.quantity }
-            : item
-        ),
+        items: state.items.filter(item => item.id !== action.payload),
       };
+
     case "CLEAR_CART":
-      return { ...state, cartItems: [] };
+      return { ...state, items: [] };
+
     default:
       return state;
   }
 }
 
-export function CartProvider({ children }) {
+export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(state.cartItems));
-  }, [state.cartItems]);
+    localStorage.setItem("cartItems", JSON.stringify(state.items));
+  }, [state.items]);
 
   return (
     <CartContext.Provider value={{ state, dispatch }}>
       {children}
     </CartContext.Provider>
   );
-}
+};
 
 export default CartContext;
