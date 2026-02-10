@@ -105,6 +105,7 @@ const Home = () => {
           <li><a href="#fashion">FASHION</a></li>
           <li><a href="#favourite">FAVOURITE</a></li>
           <li><a href="#lifestyle">LIFESTYLE</a></li>
+          <li><a href="#cart">CART</a></li>
           <li>
             <Link to="/auth" className="btn" style={{color: 'white'}}>SIGN UP</Link>
           </li>
